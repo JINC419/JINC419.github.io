@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>高雄旅遊行程規劃</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        input, button { margin: 10px; padding: 5px; }
+        #result { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>高雄旅遊行程規劃</h1>
+    <label>開始時間：</label><input type="datetime-local" id="start-time"><br>
+    <label>結束時間：</label><input type="datetime-local" id="end-time"><br>
+    <button onclick="generateItinerary()">生成行程</button>
+    <div id="result"></div>
+
+    <script>
+        async function generateItinerary() {
+            const startTime = document.getElementById("start-time").value;
+            const endTime = document.getElementById("end-time").value;
+            if (!startTime || !endTime) {
+                alert("請輸入開始和結束時間！");
+                return;
+            }
+
+            // 假設後端 API 運行於 Replit 或 Colab
+            const response = await fetch('YOUR_BACKEND_URL', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ start: startTime, end: endTime, location: "高雄市" })
+            });
+            const data = await response.json();
+            document.getElementById("result").innerText = data.itinerary;
+        }
+    </script>
+</body>
+</html>
